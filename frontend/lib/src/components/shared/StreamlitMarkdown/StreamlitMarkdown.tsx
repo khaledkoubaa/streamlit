@@ -31,6 +31,8 @@ import { type Element, type Root } from "hast"
 import xxhash from "xxhashjs"
 import slugify from "@sindresorhus/slugify"
 import { visit } from "unist-util-visit"
+// @ts-expect-error
+import { toString as nodeToString } from "mdast-util-to-string"
 import ReactMarkdown, {
   Components,
   Options as ReactMarkdownProps,
@@ -507,7 +509,12 @@ function createRemarkColoringAndSmall(
       // ignored / not rendered. See https://github.com/streamlit/streamlit/issues/8726,
       // https://github.com/streamlit/streamlit/issues/5968
       node.type = "text"
-      node.value = `:${nodeName}`
+      const content = nodeToString(node)
+      if (content) {
+        node.value = `:${nodeName}[${content}]`
+      } else {
+        node.value = `:${nodeName}`
+      }
       node.data = {}
     })
     return tree

@@ -18496,6 +18496,7 @@ __metadata:
   dependencies:
     "@vitest/coverage-v8": "npm:^3.2.4"
     concurrently: "npm:^9.2.0"
+    mdast-util-to-string: "npm:^4.0.0"
     vitest: "npm:^3.2.4"
   languageName: unknown
   linkType: soft

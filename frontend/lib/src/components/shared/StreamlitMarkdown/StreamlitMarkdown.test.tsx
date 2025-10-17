@@ -453,6 +453,15 @@ describe("StreamlitMarkdown", () => {
     expect(markdown).toBeInTheDocument()
   })
 
+  it("does not remove content of unknown directive", () => {
+    const source = `this is :unsupported[text] and should be preserved`
+    render(<StreamlitMarkdown source={source} allowHTML={false} />)
+    const markdown = screen.getByText(
+      "this is :unsupported[text] and should be preserved"
+    )
+    expect(markdown).toBeInTheDocument()
+  })
+
   it("properly adds background colors", () => {
     const redbg = transparentize(colors.red80, 0.9)
     const orangebg = transparentize(colors.yellow70, 0.9)
